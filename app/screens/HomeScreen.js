@@ -1,5 +1,7 @@
-import { StyleSheet, View, ImageBackground, Image, TouchableOpacity, FlatList } from 'react-native'
-import { getAuth, signOut } from "firebase/auth";
+import { useEffect, useState } from 'react';
+import { StyleSheet, View, ImageBackground, Image, TouchableOpacity, FlatList, Modal, TouchableWithoutFeedback, Alert } from 'react-native'
+import { getAuth, reload, signOut } from "firebase/auth";
+import { doc, setDoc, getFirestore, getDoc } from "firebase/firestore";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Header from '../components/Header';
 import Background from "../../assets/background.png"
@@ -26,11 +28,69 @@ const menuItems = [
     { id: 9, icon: "logout", title: "LOG OUT", description: "", chevron: false, opacity: true, action: () => signOut(auth) },
 ]
 
-export default function HomeScreen() {
+export default function HomeScreen({ user }) {
+    const [isModalVisible, setIsModalVisible] = useState(false)
+    const [carName, setCarName] = useState()
+
+    useEffect(() => {
+        handleReadFirestore()
+    }, [carName])
+
+    const handleReadFirestore = async () => {
+        const db = getFirestore()
+        const uid = user.uid
+        const docRef = doc(db, "users", uid);
+        let docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            setCarName(docSnap.data().name);
+        }
+
+    }
+
+    const handleShowModal = () => {
+        setIsModalVisible(true)
+    }
+
+    const handleInputName = () => {
+        Alert.prompt("Enter a new name for your car.", "You can change your tesla name anytime.", (value) => handleChangeName(value))
+        setIsModalVisible(false)
+    }
+
+    const handleChangeName = async (name) => {
+        const db = getFirestore()
+        const uid = user.uid
+        await setDoc(doc(db, "users", uid), { name })
+        handleReadFirestore()
+    }
+
     return (
         <ImageBackground source={Background} style={styles.background}>
             <View style={styles.hero}>
-                <Header />
+                <Header settings={handleShowModal} carName={carName} />
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={isModalVisible}
+                    onRequestClose={() => {
+                        setIsModalVisible(!isModalVisible);
+                    }}
+                >
+                    <View style={styles.settings}>
+                        <TouchableOpacity onPress={handleInputName}>
+                            <AppText style={{ fontWeight: 'bold', fontSize: 18 }}>Change Car Name</AppText>
+                        </TouchableOpacity>
+
+                        <View style={styles.modalClose}>
+                            <TouchableWithoutFeedback onPress={() => setIsModalVisible(false)}>
+                                <MaterialCommunityIcons name="close" size={35} color="white" />
+                            </TouchableWithoutFeedback>
+                        </View>
+
+                    </View>
+
+                </Modal>
 
                 <View style={styles.heroInfo}>
                     <View style={styles.batteryContainer}>
@@ -49,6 +109,7 @@ export default function HomeScreen() {
                         </TouchableOpacity>
                     ))}
                 </View>
+
             </View>
 
             <View style={styles.menuItemsContainer}>
@@ -139,4 +200,22 @@ const styles = StyleSheet.create({
         height: "50%",
         paddingHorizontal: 10
     },
+
+    settings: {
+        display: 'flex',
+        paddingTop: 110,
+        justifyContent: "flex-start",
+        alignItems: "center",
+        backgroundColor: 'black',
+        height: '100%',
+        width: '50%',
+        position: "relative"
+    },
+
+    modalClose: {
+        position: "absolute",
+        justifyContent: "flex-start",
+        top: Platform.OS === 'ios' ? 50 : 20,
+        left: 0,
+    }
 })

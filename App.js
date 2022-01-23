@@ -64,7 +64,7 @@ export default function App() {
     <>
       {!user
         ? <AuthenticationScreen handleLogin={handleLogin} authError={authError} loginMethod={handleLoginMethod} />
-        : <HomeScreen />
+        : <HomeScreen user={user} />
       }
     </>
   );

@@ -6,7 +6,7 @@ import AppText from "./AppText"
 
 
 
-export default function Header() {
+export default function Header({ settings, carName }) {
     const netInfo = useNetInfo()
 
     return (
@@ -20,11 +20,11 @@ export default function Header() {
 
                 <View style={styles.headerItems}>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={settings}>
                         <Ionicons name="settings-sharp" size={30} color="white" />
                     </TouchableOpacity>
 
-                    <AppText style={styles.headerText}>My Model S</AppText>
+                    <AppText numberOfLines={1} style={styles.headerText}>{carName ? carName : "My Tesla"}</AppText>
 
                     <TouchableOpacity style={styles.hidden}>
                         <MaterialCommunityIcons name="" size={30} color="white" />
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "red",
         paddingTop: Platform.OS === 'ios' ? 60 : 20,
-        position: 'absolute'
+        position: 'absolute',
     },
 
     internet: {
