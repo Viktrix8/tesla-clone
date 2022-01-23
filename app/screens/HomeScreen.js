@@ -1,9 +1,12 @@
 import { StyleSheet, View, ImageBackground, Image, TouchableOpacity, FlatList } from 'react-native'
+import { getAuth, signOut } from "firebase/auth";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Header from '../components/Header';
 import Background from "../../assets/background.png"
 import AppText from '../components/AppText';
 import MenuItem from '../components/MenuItem';
+
+const auth = getAuth()
 
 const heroIcons = [
     { id: 1, name: "fan" },
@@ -20,6 +23,7 @@ const menuItems = [
     { id: 6, icon: "lightning-bolt", title: "CHARGING", description: "", chevron: true, opacity: true },
     { id: 7, icon: "map-marker", title: "LOCATION", description: "USA - Los Angels, Tesla Street", chevron: true, opacity: true },
     { id: 8, icon: "steering", title: "SUMMON", description: "", chevron: true, opacity: true },
+    { id: 9, icon: "logout", title: "LOG OUT", description: "", chevron: false, opacity: true, action: () => signOut(auth) },
 ]
 
 export default function HomeScreen() {

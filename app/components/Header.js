@@ -1,27 +1,38 @@
-import React from 'react'
-import { StyleSheet, View, TouchableOpacity, Platform } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, Platform, } from 'react-native'
+import { useNetInfo } from "@react-native-community/netinfo";
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppText from "./AppText"
 
+
+
 export default function Header() {
+    const netInfo = useNetInfo()
+
     return (
-        <View style={styles.container}>
+        <>
+            {!netInfo.isInternetReachable &&
+                <View style={styles.internetContainer}>
+                    <AppText style={styles.internet}>No internet connection</AppText>
+                </View>
+            }
+            <View style={styles.container}>
 
-            <View style={styles.headerItems}>
+                <View style={styles.headerItems}>
 
-                <TouchableOpacity>
-                    <Ionicons name="settings-sharp" size={30} color="white" />
-                </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Ionicons name="settings-sharp" size={30} color="white" />
+                    </TouchableOpacity>
 
-                <AppText style={styles.headerText}>My Model S</AppText>
+                    <AppText style={styles.headerText}>My Model S</AppText>
 
-                <TouchableOpacity style={styles.hidden}>
-                    <MaterialCommunityIcons name="" size={30} color="white" />
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.hidden}>
+                        <MaterialCommunityIcons name="" size={30} color="white" />
+                    </TouchableOpacity>
 
+                </View>
             </View>
-        </View>
+        </>
     )
 }
 
@@ -45,5 +56,22 @@ const styles = StyleSheet.create({
     hidden: {
         width: 30,
         height: 30
+    },
+
+    internetContainer: {
+        width: "100%",
+        display: 'flex',
+        height: 50,
+        alignItems: "center",
+        backgroundColor: "red",
+        paddingTop: Platform.OS === 'ios' ? 60 : 20,
+        position: 'absolute'
+    },
+
+    internet: {
+        fontWeight: "bold",
+        fontSize: 18,
+        position: "absolute",
+        bottom: 0
     }
 })

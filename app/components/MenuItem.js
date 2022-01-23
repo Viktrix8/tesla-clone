@@ -9,7 +9,7 @@ export default function MenuItem({ item }) {
         <TouchableWithoutFeedback>
             <>
                 {item.opacity &&
-                    <TouchableOpacity style={styles.menuItem}>
+                    <TouchableOpacity style={styles.menuItem} onPress={item.action}>
                         <View style={styles.menuItemIcon}>
                             <MaterialCommunityIcons name={item.icon} size={35} color="white" />
                         </View>
@@ -27,7 +27,7 @@ export default function MenuItem({ item }) {
                     </TouchableOpacity>
                 }
                 {!item.opacity &&
-                    <View style={styles.menuItem}>
+                    <View style={styles.menuItem} onPress={item.action}>
                         <View style={styles.menuItemIcon}>
                             <MaterialCommunityIcons name={item.icon} size={35} color="white" />
                         </View>
