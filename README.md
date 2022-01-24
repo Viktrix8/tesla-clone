@@ -55,13 +55,9 @@ I will show you how to install it on your machine.
 
 ### Prerequisites
 
-* 1.npm
+* 1.Install NPM or YARN
   ```sh
   npm install npm@latest -g
-  ```
-or
-* 1.1 yarn
-  ```sh
   npm install yarn -g
   ```
   
@@ -79,14 +75,10 @@ Installation proccess.
    ```sh
    git clone https://github.com/Viktrix8/tesla-clone.git
    ```
-2. Install NPM packages
+2. Install NPM packages or YARN Packages
    ```sh
    npm install
-   ```
-   
-2.1 Or Install Yarn packages
-   ```sh
-  yarn install
+   yarn install
    ```
    
 4. Start expo-cli
@@ -102,7 +94,10 @@ Installation proccess.
 ## Usage
 
 Here are few screenshots of app.
-[img]https://i.postimg.cc/N9cxPXTf/Simulator-Screen-Shot-i-Phone-13-Pro-Max-2022-01-23-at-19-53-01.png[/img][/url]
+
+![image]https://i.postimg.cc/ZTjkfwkf/Simulator-Screen-Shot-i-Phone-13-Pro-Max-2022-01-23-at-19-53-01.png
+![alt text](//i.postimg.cc/ZTjkfwkf/Simulator-Screen-Shot-i-Phone-13-Pro-Max-2022-01-23-at-19-53-01.png)
+<img src="//i.postimg.cc/ZTjkfwkf/Simulator-Screen-Shot-i-Phone-13-Pro-Max-2022-01-23-at-19-53-01.png" alt=""/>
 
 [url=https://postimg.cc/ZvYxJhVG][img]https://i.postimg.cc/ZvYxJhVG/Simulator-Screen-Shot-i-Phone-13-Pro-Max-2022-01-23-at-19-53-15.png[/img][/url]
 
