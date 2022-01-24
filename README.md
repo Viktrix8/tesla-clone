@@ -1,5 +1,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+https://expo.dev/@viktrix/tesla-app
 
 I built Tesla App clone with React Native.
 
@@ -39,6 +40,7 @@ I will show you how to install it on your machine.
 ### Installation
 
 Installation proccess.
+**You can install it on your machine or see the app through your phone: https://expo.dev/@viktrix/tesla-app**
 
 1. Clone the repo
    ```sh
